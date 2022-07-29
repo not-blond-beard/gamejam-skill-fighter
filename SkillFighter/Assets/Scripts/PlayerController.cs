@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     public int CurrentHealth { get; private set; }
     public bool IsDead { get { return this.CurrentHealth <= 0; } }
 
+    public ClericWeapon weapon;
+    public Transform LaunchPoint;
+
     // properties
     private Animator animatorObject;
     private Rigidbody2D rigidBody;
@@ -104,6 +107,10 @@ public class PlayerController : MonoBehaviour
         if (!this.IsDead) {
             this.Move();
             this.Jump();
+
+            if (Input.GetKeyDown("j")) {
+                this.animatorObject.SetBool("TriggerCast", true);
+            }
         }
     }
 
@@ -144,5 +151,28 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate() 
     {   
         this.GroundChecker();
+    }
+
+    private void OnCastEffect()
+    {
+        
+        Debug.Log("test1");
+    }
+
+    private void OnCastComplete()
+    {
+        Debug.Log("test2");
+
+        ClericWeapon weapon;
+
+        weapon = this.weapon;
+        
+        if (weapon != null)
+        {
+            ClericWeapon.Create(
+                weapon,
+                this.LaunchPoint,
+                (this.currentDirection == Direction.Left ? -1 : 1));
+        }
     }
 }
