@@ -11,7 +11,7 @@ public class ClericWeapon : MonoBehaviour
 
         Vector2 position = launchPoint.position;
         weapon.transform.position = position;
-        weapon.directionX = directionX
+        weapon.directionX = directionX;
 
         if (directionX < 0)
         {
