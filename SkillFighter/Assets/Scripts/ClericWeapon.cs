@@ -9,12 +9,10 @@ public class ClericWeapon : MonoBehaviour
     {
         ClericWeapon weapon = GameObject.Instantiate<ClericWeapon>(instance);
 
-        // Set the start position
         Vector2 position = launchPoint.position;
         weapon.transform.position = position;
-        weapon.directionX = directionX;
+        weapon.directionX = directionX
 
-        // Flip the sprite if necessary
         if (directionX < 0)
         {
             Vector3 scale = weapon.transform.localScale;
@@ -27,7 +25,7 @@ public class ClericWeapon : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(this.DestroyAfter(60));
+        StartCoroutine(this.DestroyAfter(3));
     }
     
     private IEnumerator DestroyAfter(float seconds)
