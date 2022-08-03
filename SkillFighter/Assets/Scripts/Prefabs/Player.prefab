@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1011998190550869538}
   - component: {fileID: 1011998190550869542}
   - component: {fileID: 1011998190550869543}
+  - component: {fileID: 8785125374217545364}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -29,9 +30,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011998190550869537}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.194916, y: -2.044721, z: -6477.198}
-  m_LocalScale: {x: 719.6887, y: 719.6887, z: 71.96887}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 7, y: 7, z: 0.70000005}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1011998192113760462}
   - {fileID: 3357516930752806709}
@@ -125,7 +126,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2.5
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -163,10 +164,74 @@ MonoBehaviour:
   JumpPower: 500
   MaxHealth: 100
   MaxJumpStep: 2
-  weapon: {fileID: 0}
-  LaunchPoint: {fileID: 0}
-  spell: {fileID: 0}
-  SpellPoint: {fileID: 0}
+  weapon: {fileID: 2187799864535929083, guid: 8aea2f7fb2ad3aa4e9cb889be3ff8d7b, type: 3}
+  LaunchPoint: {fileID: 1011998192113760462}
+  spell: {fileID: 11431784, guid: 9539f6677a5a9e042a42d0f800c87def, type: 3}
+  SpellPoint: {fileID: 3357516930752806709}
+  movementInput: {x: 0, y: 0}
+  jumped: 0
+--- !u!114 &8785125374217545364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011998190550869537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 32dd67a44e3a2b74ead8582b81144c7e, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1011998190550869543}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 52cdb10b-9ad5-47e5-81bc-3ecda26e6ac3
+    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1011998190550869543}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e8da7527-a3e5-4334-94c5-4d080b996616
+    m_ActionName: Player/Jump[/Keyboard/space]
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Keyboard
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1011998192113760461
 GameObject:
   m_ObjectHideFlags: 0

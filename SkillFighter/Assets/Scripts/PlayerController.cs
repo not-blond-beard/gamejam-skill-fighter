@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -40,10 +41,11 @@ public class PlayerController : MonoBehaviour
     }
     private Direction currentDirection = Direction.Right;
 
+    public Vector2 movementInput;
+    public bool jumped;
 
     void Start()
     {
-
         this.animatorObject = this.GetComponent<Animator>();
         this.rigidBody = this.GetComponent<Rigidbody2D>();
         this.spriteRenderer = GetComponent<SpriteRenderer>();
@@ -60,10 +62,16 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void OnMove(InputAction.CallbackContext ctx) {
+        movementInput = ctx.ReadValue<Vector2>();
+    }
+    
+    public void OnJump(InputAction.CallbackContext ctx) {
+        jumped = ctx.action.triggered;
+    }
 
-    private void Move()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
+    private void Move() {
+        float horizontal = movementInput.x;
         float nextHorizontal = horizontal * this.WalkSpeed * Time.deltaTime;
 
         this.rigidBody.velocity = new Vector2(horizontal * this.WalkSpeed * Time.deltaTime, this.rigidBody.velocity.y);
@@ -170,22 +178,22 @@ public class PlayerController : MonoBehaviour
         this.Move();
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (jumped)
         {
             this.Jump();
         }
-        else if (this.IsAbleSpecialEffect() && Input.GetKeyDown(KeyCode.Q))
-        {
-            this.animatorObject.SetTrigger("TriggerAttack");
-        }
-        else if (this.IsAbleSpecialEffect() && Input.GetKeyDown(KeyCode.W))
-        {
-            this.animatorObject.SetTrigger("TriggerQuickAttack");
-        }
-        else if (this.IsAbleSpecialEffect() && Input.GetKeyDown("j"))
-        {
-            this.animatorObject.SetBool("TriggerCast", true);
-        }
+        // else if (this.IsAbleSpecialEffect() && Input.GetKeyDown(KeyCode.Q))
+        // {
+        //     this.animatorObject.SetTrigger("TriggerAttack");
+        // }
+        // else if (this.IsAbleSpecialEffect() && Input.GetKeyDown(KeyCode.W))
+        // {
+        //     this.animatorObject.SetTrigger("TriggerQuickAttack");
+        // }
+        // else if (this.IsAbleSpecialEffect() && Input.GetKeyDown("j"))
+        // {
+        //     this.animatorObject.SetBool("TriggerCast", true);
+        // }
     }
 
     void FixedUpdate()
