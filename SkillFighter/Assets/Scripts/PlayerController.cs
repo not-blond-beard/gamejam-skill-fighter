@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
 
     public ClericWeapon weapon;
     public Transform LaunchPoint;
+    public WeaponEffect spell;
+    public Transform SpellPoint;
+    private WeaponEffect runningEffect;
 
     // properties
     private Animator animatorObject;
@@ -90,8 +93,8 @@ public class PlayerController : MonoBehaviour
             this.rigidBody.AddForce(new Vector2(0, this.JumpPower));
             this.currentJumpStep = this.currentJumpStep + 1;
 
-            if (!animatorObject.GetBool("IsJumping")) {
-                this.animatorObject.SetBool("IsJumping", true);
+            if (!animatorObject.GetBool("IsGrounded")) {
+                this.animatorObject.SetBool("IsGrounded", true);
             }
 
             if (animatorObject.GetFloat("VelocityX") > 0) {
@@ -136,14 +139,13 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit2D raycastHit = Physics2D.BoxCast(transform.position, this.boxCastSize, 0f, Vector2.down, this.boxCastMaxDistance, LayerMask.GetMask("Ground"));
         return (raycastHit.collider != null);
-
     }
 
     private void GroundChecker() {
         if (this.rigidBody.velocity.y < 0 && this.currentJumpStep != 0) {
             if (this.IsOnGround()) {
                 this.currentJumpStep = 0;
-                this.animatorObject.SetBool("IsJumping", false);
+                this.animatorObject.SetBool("IsGrounded", false);
             }
         }
     }
@@ -155,24 +157,32 @@ public class PlayerController : MonoBehaviour
 
     private void OnCastEffect()
     {
-        
-        Debug.Log("test1");
+        if (this.animatorObject.GetCurrentAnimatorStateInfo(0).IsName("Spell"))
+        {
+            this.runningEffect = WeaponEffect.Create(this.spell, this.SpellPoint);
+        }
     }
 
     private void OnCastComplete()
     {
-        Debug.Log("test2");
-
-        ClericWeapon weapon;
-
-        weapon = this.weapon;
-        
-        if (weapon != null)
+        if (this.runningEffect != null)
         {
-            ClericWeapon.Create(
-                weapon,
-                this.LaunchPoint,
-                (this.currentDirection == Direction.Left ? -1 : 1));
+            this.runningEffect.Stop();
+        }
+
+        if (!this.animatorObject.GetCurrentAnimatorStateInfo(0).IsName("Spell"))
+        {
+            ClericWeapon weapon;
+
+            weapon = this.weapon;
+            
+            if (weapon != null)
+            {
+                ClericWeapon.Create(
+                    weapon,
+                    this.LaunchPoint,
+                    (this.currentDirection == Direction.Left ? -1 : 1));
+            }
         }
     }
 }

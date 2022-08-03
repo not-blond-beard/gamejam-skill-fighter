@@ -34,6 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1011998192113760462}
+  - {fileID: 3357516930752806709}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -164,6 +165,8 @@ MonoBehaviour:
   MaxJumpStep: 2
   weapon: {fileID: 2187799864535929083, guid: 8aea2f7fb2ad3aa4e9cb889be3ff8d7b, type: 3}
   LaunchPoint: {fileID: 1011998192113760462}
+  spell: {fileID: 11431784, guid: 9539f6677a5a9e042a42d0f800c87def, type: 3}
+  SpellPoint: {fileID: 3357516930752806709}
 --- !u!1 &1011998192113760461
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,4 +197,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1011998190550869541}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9007502358034670580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3357516930752806709}
+  m_Layer: 0
+  m_Name: SpellPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3357516930752806709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9007502358034670580}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0036, y: 0.1037, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1011998190550869541}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
