@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 1011998190550869537}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4d2bc84d7468913439890e670644d944, type: 2}
+  m_Controller: {fileID: 9100000, guid: a6de69910c972024c935fc63aba744d5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -159,14 +159,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a66689a2ea6194796f83ffdc1f83be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 300
+  WalkSpeed: 1000
   JumpPower: 500
   MaxHealth: 100
   MaxJumpStep: 2
-  weapon: {fileID: 2187799864535929083, guid: 8aea2f7fb2ad3aa4e9cb889be3ff8d7b, type: 3}
-  LaunchPoint: {fileID: 1011998192113760462}
-  spell: {fileID: 11431784, guid: 9539f6677a5a9e042a42d0f800c87def, type: 3}
-  SpellPoint: {fileID: 3357516930752806709}
+  weapon: {fileID: 0}
+  LaunchPoint: {fileID: 0}
+  spell: {fileID: 0}
+  SpellPoint: {fileID: 0}
 --- !u!1 &1011998192113760461
 GameObject:
   m_ObjectHideFlags: 0

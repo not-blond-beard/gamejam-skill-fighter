@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Character")]
-    public float WalkSpeed = 300;
+    public float WalkSpeed = 1000;
     public float JumpPower = 500;
     public int MaxHealth = 100;
     public int MaxJumpStep = 2;
@@ -39,83 +39,81 @@ public class PlayerController : MonoBehaviour
         Right
     }
     private Direction currentDirection = Direction.Right;
-    
+
 
     void Start()
     {
-        
+
         this.animatorObject = this.GetComponent<Animator>();
         this.rigidBody = this.GetComponent<Rigidbody2D>();
         this.spriteRenderer = GetComponent<SpriteRenderer>();
 
         this.boxCastSize = new Vector2(0.5f, 0.4f);
-    
+
         this.CurrentHealth = this.MaxHealth;
+
+        this.animatorObject.SetBool("IsGrounded", true);
     }
 
-    private void Awake() {
-        
+    private void Awake()
+    {
+
     }
 
 
-    private void Move() {
+    private void Move()
+    {
         float horizontal = Input.GetAxis("Horizontal");
         float nextHorizontal = horizontal * this.WalkSpeed * Time.deltaTime;
 
         this.rigidBody.velocity = new Vector2(horizontal * this.WalkSpeed * Time.deltaTime, this.rigidBody.velocity.y);
 
-        if (this.currentJumpStep == 0) {
+        if (this.currentJumpStep == 0)
+        {
             this.animatorObject.SetFloat("VelocityX", Mathf.Abs(this.rigidBody.velocity.x));
         }
 
-        
+
         if (!Mathf.Approximately(this.rigidBody.velocity.x, 0))
         {
             this.FlipPlayer(this.rigidBody.velocity.x < 0 ? Direction.Left : Direction.Right);
         }
     }
 
-    private void FlipPlayer(Direction nextDirection) {
-        if (this.currentDirection == nextDirection) {
+    private void FlipPlayer(Direction nextDirection)
+    {
+        if (this.currentDirection == nextDirection)
+        {
             return;
         }
 
-        
+
         Vector3 scale = this.transform.localScale;
         scale.x = -scale.x;
 
         this.transform.localScale = scale;
         this.currentDirection = nextDirection;
     }
-    
-    private void Jump() {
-        if (Input.GetKeyDown(KeyCode.Space) && this.currentJumpStep < this.MaxJumpStep) {
+
+    private void Jump()
+    {
+        if (this.currentJumpStep < this.MaxJumpStep)
+        {
             this.rigidBody.AddForce(new Vector2(0, this.JumpPower));
             this.currentJumpStep = this.currentJumpStep + 1;
 
-            if (!animatorObject.GetBool("IsGrounded")) {
-                this.animatorObject.SetBool("IsGrounded", true);
+            if (animatorObject.GetBool("IsGrounded"))
+            {
+                this.animatorObject.SetBool("IsGrounded", false);
             }
 
-            if (animatorObject.GetFloat("VelocityX") > 0) {
+            if (animatorObject.GetFloat("VelocityX") > 0)
+            {
                 this.animatorObject.SetFloat("VelocityX", 0);
             }
         }
     }
-    
-    void Update()
-    {
-        this.rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        if (!this.IsDead) {
-            this.Move();
-            this.Jump();
-
-            if (Input.GetKeyDown("j")) {
-                this.animatorObject.SetBool("TriggerCast", true);
-            }
-        }
-    }
 
     void OnDrawGizmos()
     {
@@ -135,23 +133,63 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool IsOnGround()
-    {   
+    {
 
         RaycastHit2D raycastHit = Physics2D.BoxCast(transform.position, this.boxCastSize, 0f, Vector2.down, this.boxCastMaxDistance, LayerMask.GetMask("Ground"));
         return (raycastHit.collider != null);
     }
 
-    private void GroundChecker() {
-        if (this.rigidBody.velocity.y < 0 && this.currentJumpStep != 0) {
-            if (this.IsOnGround()) {
+    private void GroundChecker()
+    {
+        if (this.rigidBody.velocity.y < 0 && this.currentJumpStep != 0)
+        {
+            if (this.IsOnGround())
+            {
                 this.currentJumpStep = 0;
-                this.animatorObject.SetBool("IsGrounded", false);
+                this.animatorObject.SetBool("IsGrounded", true);
             }
         }
     }
 
-    void FixedUpdate() 
-    {   
+    private bool IsAbleSpecialEffect()
+    {
+        AnimatorStateInfo animationStateInfo = this.animatorObject.GetCurrentAnimatorStateInfo(0);
+
+        return (animationStateInfo.IsName("Idle") || animationStateInfo.IsName("Walk") || animationStateInfo.IsName("Jump"));
+    }
+
+    void Update()
+    {
+        if (this.IsDead)
+        {
+            return;
+        }
+
+        this.rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        this.Move();
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            this.Jump();
+        }
+        else if (this.IsAbleSpecialEffect() && Input.GetKeyDown(KeyCode.Q))
+        {
+            this.animatorObject.SetTrigger("TriggerAttack");
+        }
+        else if (this.IsAbleSpecialEffect() && Input.GetKeyDown(KeyCode.W))
+        {
+            this.animatorObject.SetTrigger("TriggerQuickAttack");
+        }
+        else if (this.IsAbleSpecialEffect() && Input.GetKeyDown("j"))
+        {
+            this.animatorObject.SetBool("TriggerCast", true);
+        }
+    }
+
+    void FixedUpdate()
+    {
         this.GroundChecker();
     }
 
@@ -175,7 +213,7 @@ public class PlayerController : MonoBehaviour
             ClericWeapon weapon;
 
             weapon = this.weapon;
-            
+
             if (weapon != null)
             {
                 ClericWeapon.Create(
