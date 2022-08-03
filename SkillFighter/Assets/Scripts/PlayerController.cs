@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 movementInput;
     public bool jumped;
+    public bool attacked;
 
     void Start()
     {
@@ -69,6 +70,12 @@ public class PlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext ctx) {
         jumped = ctx.action.triggered;
     }
+
+
+    public void OnAttack(InputAction.CallbackContext ctx) {
+        attacked = ctx.action.triggered;
+    }
+
 
     private void Move() {
         float horizontal = movementInput.x;
@@ -186,10 +193,10 @@ public class PlayerController : MonoBehaviour
         // {
         //     this.animatorObject.SetTrigger("TriggerAttack");
         // }
-        // else if (this.IsAbleSpecialEffect() && Input.GetKeyDown(KeyCode.W))
-        // {
-        //     this.animatorObject.SetTrigger("TriggerQuickAttack");
-        // }
+        else if (this.IsAbleSpecialEffect() && attacked)
+        {
+            this.animatorObject.SetTrigger("TriggerQuickAttack");
+        }
         // else if (this.IsAbleSpecialEffect() && Input.GetKeyDown("j"))
         // {
         //     this.animatorObject.SetBool("TriggerCast", true);

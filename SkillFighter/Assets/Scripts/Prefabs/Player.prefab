@@ -170,6 +170,7 @@ MonoBehaviour:
   SpellPoint: {fileID: 3357516930752806709}
   movementInput: {x: 0, y: 0}
   jumped: 0
+  attacked: 0
 --- !u!114 &8785125374217545364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +228,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e8da7527-a3e5-4334-94c5-4d080b996616
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1011998190550869543}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bdb8d593-10cf-4bab-bf60-0a9b1487711c
+    m_ActionName: Player/Attack[/Keyboard/u,/Keyboard/semicolon]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
