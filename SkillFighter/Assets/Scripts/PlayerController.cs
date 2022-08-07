@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float WalkSpeed = 1000;
     public float JumpPower = 500;
     public int MaxHealth = 100;
+    public int mp = 100;
     public int MaxJumpStep = 2;
     public int CurrentHealth { get; private set; }
     public bool IsDead { get { return this.CurrentHealth <= 0; } }
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour
     public Vector2 movementInput;
     public bool jumped;
     public bool attacked;
+
+    public SpriteRenderer HPBar;
 
     void Start()
     {
@@ -76,6 +79,11 @@ public class PlayerController : MonoBehaviour
         attacked = ctx.action.triggered;
     }
 
+    
+    public void Attcked()
+    {
+        HPBar.size = new Vector2((float) (CurrentHealth / 100), 1f);
+    }
 
     private void Move() {
         float horizontal = movementInput.x;
